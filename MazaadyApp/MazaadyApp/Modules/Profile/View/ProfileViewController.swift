@@ -17,12 +17,16 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
     }
 
     func showUserProfile(_ profile: ProfileModel) {
-        // Bind user profile data to the UI
-        print("Loaded profile: \(profile.username)")
+        // 🔄 Update to reflect your actual model properties
+        print("✅ Name:", profile.name)
+        print("✅ Username:", profile.userName)
+        print("✅ Image URL:", profile.image)
+        print("✅ Country:", profile.countryName)
+        print("✅ City:", profile.cityName)
+        print("✅ Followers: \(profile.followersCount), Following: \(profile.followingCount)")
     }
 
     func showError(_ message: String) {
-        // Show error as alert
         let alert = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)

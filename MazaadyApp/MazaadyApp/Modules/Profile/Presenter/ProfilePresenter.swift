@@ -13,15 +13,18 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     init(view: ProfileViewProtocol) {
         self.view = view
     }
-
+    
     func viewDidLoad() {
-        // Simulated data
-        let mockProducts = [
-            Product(id: 1, title: "Red Jacket", price: 500, imageURL: "", isSpecial: true, endDate: Date().addingTimeInterval(3600)),
-            Product(id: 2, title: "Blue Shirt", price: 300, imageURL: "", isSpecial: false, endDate: nil)
-        ]
-        let mockProfile = ProfileModel(username: "Ahmed Mohammed", imageURL: "", products: mockProducts)
-        view?.showUserProfile(mockProfile)
+        NetworkManager.shared.fetchProfileData { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let profile):
+                    self?.view?.showUserProfile(profile)
+                case .failure(let error):
+                    self?.view?.showError(error.localizedDescription)
+                }
+            }
+        }
     }
 
     func didTapLanguage() {
