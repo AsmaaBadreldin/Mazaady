@@ -20,9 +20,9 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
     private let tabsView = ProfileTabsView()
     private let searchBarView = SearchBarView()
     private let productGridView = ProductGridView()
-
+    private let bannerStackPlaceholder = BannerView()
+    
     // Placeholder views for upcoming steps
-    private let bannerStackPlaceholder = UIView() // will be BannerStackView
     private let tagListPlaceholder = UIView() // will be TagListView
 
     // MARK: - Lifecycle
@@ -83,7 +83,6 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
 
         tabsView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         searchBarView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        bannerStackPlaceholder.heightAnchor.constraint(equalToConstant: 180).isActive = true
         tagListPlaceholder.heightAnchor.constraint(equalToConstant: 120).isActive = true
     }
 
