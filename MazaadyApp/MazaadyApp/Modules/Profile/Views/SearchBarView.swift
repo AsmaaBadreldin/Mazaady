@@ -13,8 +13,6 @@ protocol SearchBarViewDelegate: AnyObject {
 
 final class SearchBarView: UIView {
 
-    // MARK: - Properties
-
     weak var delegate: SearchBarViewDelegate?
 
     private let textField: UITextField = {
@@ -23,16 +21,15 @@ final class SearchBarView: UIView {
         tf.borderStyle = .none
         tf.layer.cornerRadius = 12
         tf.layer.masksToBounds = true
-        tf.backgroundColor = UIColor.systemGray6
+        tf.backgroundColor = .white
         tf.font = .systemFont(ofSize: 14)
         tf.setLeftIcon(UIImage(named: "searchIcon")!)
         tf.autocorrectionType = .no
         tf.autocapitalizationType = .none
-        tf.textContentType = .oneTimeCode // suppress AutoFill
+        tf.textContentType = .oneTimeCode
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
-
 
     private let searchButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -42,8 +39,6 @@ final class SearchBarView: UIView {
         btn.translatesAutoresizingMaskIntoConstraints = false
         return btn
     }()
-
-    // MARK: - Init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,9 +50,9 @@ final class SearchBarView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Layout
-
     private func setupLayout() {
+        backgroundColor = .clear
+
         let container = UIStackView(arrangedSubviews: [textField, searchButton])
         container.axis = .horizontal
         container.spacing = 8
@@ -68,23 +63,18 @@ final class SearchBarView: UIView {
 
         NSLayoutConstraint.activate([
             container.topAnchor.constraint(equalTo: topAnchor),
-            container.leadingAnchor.constraint(equalTo: leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: trailingAnchor),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
-
-            searchButton.widthAnchor.constraint(equalToConstant: 44)
+            container.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            container.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16) 
         ])
 
+        searchButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
     }
-    
-
-    // MARK: - Actions
 
     @objc private func searchTapped() {
         delegate?.didTapSearchButton(with: textField.text ?? "")
     }
 
-    // Optional external config
     func setPlaceholder(_ text: String) {
         textField.placeholder = text
     }

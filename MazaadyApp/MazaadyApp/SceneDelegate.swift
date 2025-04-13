@@ -13,25 +13,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
+
         print("🚀 Running in environment: \(APIEnvironment.current)")
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
 
         let window = UIWindow(windowScene: windowScene)
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-
-        // 👇 Instantiate the initial view controller from the storyboard
-        if let profileVC = storyboard.instantiateInitialViewController() as? ProfileViewController {
-            let presenter = ProfilePresenter(view: profileVC)
-            profileVC.presenter = presenter
-
-            window.rootViewController = profileVC
-            window.makeKeyAndVisible()
-            self.window = window
-        } else {
-            print("❌ Failed to cast initial view controller to ProfileViewController.")
-        }
+        
+        // 👉 Use your MainTabBarController as root
+        let tabBarController = MainTabBarController()
+        window.rootViewController = tabBarController
+        window.makeKeyAndVisible()
+        self.window = window
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

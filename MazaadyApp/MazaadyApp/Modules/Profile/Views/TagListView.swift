@@ -29,7 +29,7 @@ final class TagListView: UIView {
         layout.sectionInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
 
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.isScrollEnabled = false // 👈 IMPORTANT!
+        cv.isScrollEnabled = false
         cv.backgroundColor = .clear
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
@@ -95,7 +95,7 @@ final class TagListView: UIView {
             
             // Calculate total height: label height + spacing + tags
             let titleHeight: CGFloat = 22 // roughly label height
-            let verticalSpacing: CGFloat = 12 // your stackView spacing
+            let verticalSpacing: CGFloat = 12
             let totalHeight = titleHeight + verticalSpacing + newSize.height
 
             if heightConstraint?.constant != totalHeight {
@@ -118,7 +118,7 @@ final class TagListView: UIView {
                     self?.tags = tags
                     self?.collectionView.reloadData()
                 case .failure(let error):
-                    print("❌ Failed to load tags:", error)
+                    print("Failed to load tags:", error)
                 }
             }
         }

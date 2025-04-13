@@ -32,6 +32,11 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
         presenter?.viewDidLoad()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
     // MARK: - Layout Setup
 
     private func setupLayout() {
@@ -73,15 +78,12 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
             contentView.addArrangedSubview($0)
         }
 
-        // Temporary heights for placeholders
-        tabsView.backgroundColor = .systemGray6
-        searchBarView.backgroundColor = .systemGray5
-        productGridView.backgroundColor = .systemGray4
-        bannerView.backgroundColor = .systemGray3
-        tagListView.backgroundColor = .clear
+        view.backgroundColor = UIColor.systemGroupedBackground
+        scrollView.backgroundColor = UIColor.systemGroupedBackground
+        contentView.backgroundColor = UIColor.systemGroupedBackground
 
         tabsView.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        searchBarView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        searchBarView.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 
     // MARK: - ProfileViewProtocol

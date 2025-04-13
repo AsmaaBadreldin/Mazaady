@@ -11,11 +11,24 @@ final class ProfileHeaderView: UIView {
 
     // MARK: - UI Elements
 
-    let avatarImageView = UIImageView()
-    let nameLabel = UILabel()
-    let usernameLabel = UILabel()
-    let locationLabel = UILabel()
-    let statsLabel = UILabel()
+    private let avatarImageView = UIImageView()
+    private let nameLabel = UILabel()
+    private let usernameLabel = UILabel()
+    private let locationLabel = UILabel()
+
+    private let followersView = ProfileStatView()
+    private let followingView = ProfileStatView()
+
+    private lazy var statsStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [followersView, followingView])
+        stack.axis = .horizontal
+        stack.spacing = 32
+        stack.distribution = .fillEqually
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
+    // MARK: - Init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -27,11 +40,24 @@ final class ProfileHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Configure
+
     func configure(with profile: ProfileModel) {
         nameLabel.text = profile.name
         usernameLabel.text = "@\(profile.userName)"
         locationLabel.text = "\(profile.cityName), \(profile.countryName)"
-        statsLabel.text = "\(profile.followersCount) Followers • \(profile.followingCount) Following"
+
+        followersView.configure(
+            count: "\(profile.followersCount)",
+            label: "Followers",
+            icon: UIImage(named: "icon_followers")
+        )
+
+        followingView.configure(
+            count: "\(profile.followingCount)",
+            label: "Following",
+            icon: UIImage(named: "icon_following")
+        )
 
         if let url = URL(string: profile.image) {
             DispatchQueue.global().async {
@@ -44,8 +70,10 @@ final class ProfileHeaderView: UIView {
         }
     }
 
+    // MARK: - Layout
+
     private func setupViews() {
-        [avatarImageView, nameLabel, usernameLabel, locationLabel, statsLabel].forEach {
+        [avatarImageView, nameLabel, usernameLabel, locationLabel, statsStack].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
@@ -56,10 +84,10 @@ final class ProfileHeaderView: UIView {
 
         nameLabel.font = .boldSystemFont(ofSize: 18)
         usernameLabel.font = .systemFont(ofSize: 14)
-        usernameLabel.textColor = .darkGray
-        locationLabel.font = .systemFont(ofSize: 14)
-        statsLabel.font = .systemFont(ofSize: 13)
-        statsLabel.textColor = .systemPink
+        usernameLabel.textColor = .usernameGray
+
+        locationLabel.font = .systemFont(ofSize: 14, weight: .light)
+        locationLabel.textColor = .gray
     }
 
     private func setupConstraints() {
@@ -78,9 +106,9 @@ final class ProfileHeaderView: UIView {
             locationLabel.topAnchor.constraint(equalTo: usernameLabel.bottomAnchor, constant: 4),
             locationLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
 
-            statsLabel.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 6),
-            statsLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            statsLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
+            statsStack.topAnchor.constraint(equalTo: locationLabel.bottomAnchor, constant: 12),
+            statsStack.centerXAnchor.constraint(equalTo: centerXAnchor),
+            statsStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16)
         ])
     }
 }
