@@ -20,10 +20,9 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
     private let tabsView = ProfileTabsView()
     private let searchBarView = SearchBarView()
     private let productGridView = ProductGridView()
-    private let bannerStackPlaceholder = BannerView()
-    
-    // Placeholder views for upcoming steps
-    private let tagListPlaceholder = UIView() // will be TagListView
+    private let bannerView = BannerView()
+    private let tagListView = TagListView()
+
 
     // MARK: - Lifecycle
 
@@ -67,8 +66,8 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
          tabsView,
          searchBarView,
          productGridView,
-         bannerStackPlaceholder,
-         tagListPlaceholder
+         bannerView,
+         tagListView
         ].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             contentView.addArrangedSubview($0)
@@ -78,12 +77,11 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
         tabsView.backgroundColor = .systemGray6
         searchBarView.backgroundColor = .systemGray5
         productGridView.backgroundColor = .systemGray4
-        bannerStackPlaceholder.backgroundColor = .systemGray3
-        tagListPlaceholder.backgroundColor = .systemGray2
+        bannerView.backgroundColor = .systemGray3
+        tagListView.backgroundColor = .clear
 
         tabsView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         searchBarView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        tagListPlaceholder.heightAnchor.constraint(equalToConstant: 120).isActive = true
     }
 
     // MARK: - ProfileViewProtocol
