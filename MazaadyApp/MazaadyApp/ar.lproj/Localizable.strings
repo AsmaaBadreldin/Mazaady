@@ -1,0 +1,14 @@
+/* 
+  Localizable.strings
+  MazaadyApp
+
+  Created by asmaa badreldin on 13/04/2025.
+  
+*/
+
+"language" = "اللغة";
+"search" = "بحث";
+"followers" = "المتابعون";
+"following" = "المتابَعون";
+"LangSelected" = "العربية";
+"top.tags" = "أفضل العلامات";

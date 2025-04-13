@@ -28,8 +28,12 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        headerView.setSettingsAction(target: self, action: #selector(didTapLanguage))
+
         setupLayout()
         presenter?.viewDidLoad()
+        
+        view.semanticContentAttribute = .forceLeftToRight
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -86,6 +90,47 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
         searchBarView.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 
+    // MARK: - Language setup
+
+    @objc private func didTapLanguage() {
+        let alert = UIAlertController(title: "Language".localized, message: nil, preferredStyle: .actionSheet)
+
+        alert.addAction(UIAlertAction(title: "English", style: .default, handler: { _ in
+            self.setLanguage("en")
+        }))
+
+        alert.addAction(UIAlertAction(title: "العربية", style: .default, handler: { _ in
+            self.setLanguage("ar")
+        }))
+
+        alert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel))
+
+        // For iPad support
+        if let popover = alert.popoverPresentationController {
+            popover.sourceView = self.view
+            popover.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popover.permittedArrowDirections = []
+        }
+
+        present(alert, animated: true)
+    }
+    
+    private func setLanguage(_ code: String) {
+//        guard Locale.current.language.languageCode?.identifier != code else { return }
+//
+//        UserDefaults.standard.set([code], forKey: "AppleLanguages")
+//        UserDefaults.standard.synchronize()
+//
+//        // Force semantic direction (optional)
+//        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+//
+//        // Reload app interface
+//        let sceneDelegate = UIApplication.shared.connectedScenes
+//            .first?.delegate as? SceneDelegate
+//        sceneDelegate?.reloadAppInterface()
+    }
+
+
     // MARK: - ProfileViewProtocol
 
     func showUserProfile(_ profile: ProfileModel) {
@@ -101,7 +146,7 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
 
 extension ProfileViewController: ProfileTabsViewDelegate {
     func didSelectTab(index: Int) {
-        print("🟣 Selected tab index: \(index)")
+        print("Selected tab index: \(index)")
         // Update content
     }
 }

@@ -21,7 +21,7 @@ final class MainTabBarController: UITabBarController {
     }
 
     private func setupTabBarAppearance() {
-        tabBar.tintColor = UIColor(named: "MainColor") ?? .systemPink
+        tabBar.tintColor = .systemPink
         tabBar.unselectedItemTintColor = .systemGray
         tabBar.backgroundColor = .white
         tabBar.layer.shadowColor = UIColor.black.cgColor

@@ -56,5 +56,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 
+    func reloadAppInterface() {
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+
+        let window = UIWindow(windowScene: windowScene)
+
+        let tabBarController = MainTabBarController()
+        window.rootViewController = tabBarController
+        self.window = window
+        
+        // Force semantic direction (optional)
+        UIView.appearance().semanticContentAttribute = .forceLeftToRight
+
+        window.makeKeyAndVisible()
+    }
+
 }
 

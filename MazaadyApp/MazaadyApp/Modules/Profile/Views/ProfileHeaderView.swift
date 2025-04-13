@@ -28,6 +28,33 @@ final class ProfileHeaderView: UIView {
         return stack
     }()
 
+    private let languageLabel: UILabel = {
+        let label = UILabel()
+        label.text = NSLocalizedString("LangSelected", comment: "English")
+        label.font = .systemFont(ofSize: 14)
+        label.textColor = .label
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let settingsButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setImage(UIImage(named: "settingsIcon")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .systemPink
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    private lazy var languageStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [languageLabel, settingsButton])
+        stack.axis = .horizontal
+        stack.spacing = 4
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
+
     // MARK: - Init
 
     override init(frame: CGRect) {
@@ -38,6 +65,10 @@ final class ProfileHeaderView: UIView {
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func setSettingsAction(target: Any?, action: Selector) {
+        settingsButton.addTarget(target, action: action, for: .touchUpInside)
     }
 
     // MARK: - Configure
@@ -73,7 +104,7 @@ final class ProfileHeaderView: UIView {
     // MARK: - Layout
 
     private func setupViews() {
-        [avatarImageView, nameLabel, usernameLabel, locationLabel, statsStack].forEach {
+        [languageStack, avatarImageView, nameLabel, usernameLabel, locationLabel, statsStack].forEach {
             $0.translatesAutoresizingMaskIntoConstraints = false
             addSubview($0)
         }
@@ -92,6 +123,11 @@ final class ProfileHeaderView: UIView {
 
     private func setupConstraints() {
         NSLayoutConstraint.activate([
+            languageStack.topAnchor.constraint(equalTo: topAnchor, constant: 12),
+            languageStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            settingsButton.widthAnchor.constraint(equalToConstant: 20),
+            settingsButton.heightAnchor.constraint(equalToConstant: 20),
+
             avatarImageView.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             avatarImageView.centerXAnchor.constraint(equalTo: centerXAnchor),
             avatarImageView.widthAnchor.constraint(equalToConstant: 80),

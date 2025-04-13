@@ -14,7 +14,7 @@ final class TagListView: UIView {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "Top Tags"
+        label.text = NSLocalizedString("top.tags", comment: "English")
         label.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
