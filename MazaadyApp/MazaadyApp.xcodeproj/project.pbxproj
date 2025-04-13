@@ -30,29 +30,43 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		CE8BCC682DABB92000896E58 /* Exceptions for "MazaadyAppTests 2" folder in "MazaadyApp" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MazaadyAppTests.swift,
+			);
+			target = CEF242762DAA7F7E00D45D10 /* MazaadyApp */;
+		};
+		CE8BCC692DABB92000896E58 /* Exceptions for "MazaadyAppTests 2" folder in "MazaadyAppTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				MazaadyAppTests.swift,
+			);
+			target = CEF2428C2DAA7F8000D45D10 /* MazaadyAppTests */;
+		};
 		CEF2429F2DAA7F8000D45D10 /* Exceptions for "MazaadyApp" folder in "MazaadyApp" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Core/Network/MazaadyAppTests/MazaadyAppTests.swift,
 				Info.plist,
 			);
 			target = CEF242762DAA7F7E00D45D10 /* MazaadyApp */;
 		};
-		CEF242C52DAAFE5800D45D10 /* Exceptions for "MazaadyApp" folder in "MazaadyAppTests" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Core/Network/MazaadyAppTests/MazaadyAppTests.swift,
-			);
-			target = CEF2428C2DAA7F8000D45D10 /* MazaadyAppTests */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		CE8BCC662DABB92000896E58 /* MazaadyAppTests 2 */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CE8BCC682DABB92000896E58 /* Exceptions for "MazaadyAppTests 2" folder in "MazaadyApp" target */,
+				CE8BCC692DABB92000896E58 /* Exceptions for "MazaadyAppTests 2" folder in "MazaadyAppTests" target */,
+			);
+			path = "MazaadyAppTests 2";
+			sourceTree = "<group>";
+		};
 		CEF242792DAA7F7E00D45D10 /* MazaadyApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				CEF2429F2DAA7F8000D45D10 /* Exceptions for "MazaadyApp" folder in "MazaadyApp" target */,
-				CEF242C52DAAFE5800D45D10 /* Exceptions for "MazaadyApp" folder in "MazaadyAppTests" target */,
 			);
 			path = MazaadyApp;
 			sourceTree = "<group>";
@@ -95,6 +109,7 @@
 				CEF242792DAA7F7E00D45D10 /* MazaadyApp */,
 				CEF2429A2DAA7F8000D45D10 /* MazaadyAppUITests */,
 				CEF242782DAA7F7E00D45D10 /* Products */,
+				CE8BCC662DABB92000896E58 /* MazaadyAppTests 2 */,
 			);
 			sourceTree = "<group>";
 		};
@@ -124,6 +139,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				CE8BCC662DABB92000896E58 /* MazaadyAppTests 2 */,
 				CEF242792DAA7F7E00D45D10 /* MazaadyApp */,
 			);
 			name = MazaadyApp;

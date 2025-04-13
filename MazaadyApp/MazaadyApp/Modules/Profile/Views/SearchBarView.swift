@@ -26,9 +26,13 @@ final class SearchBarView: UIView {
         tf.backgroundColor = UIColor.systemGray6
         tf.font = .systemFont(ofSize: 14)
         tf.setLeftIcon(UIImage(named: "searchIcon")!)
+        tf.autocorrectionType = .no
+        tf.autocapitalizationType = .none
+        tf.textContentType = .oneTimeCode // suppress AutoFill
         tf.translatesAutoresizingMaskIntoConstraints = false
         return tf
     }()
+
 
     private let searchButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -68,10 +72,11 @@ final class SearchBarView: UIView {
             container.trailingAnchor.constraint(equalTo: trailingAnchor),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            searchButton.widthAnchor.constraint(equalToConstant: 44),
-            searchButton.heightAnchor.constraint(equalToConstant: 44)
+            searchButton.widthAnchor.constraint(equalToConstant: 44)
         ])
+
     }
+    
 
     // MARK: - Actions
 

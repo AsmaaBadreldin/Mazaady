@@ -15,7 +15,7 @@ final class ProfilePresenter: ProfilePresenterProtocol {
     }
     
     func viewDidLoad() {
-        NetworkManager.shared.fetchProfileData { [weak self] result in
+        ProfileService.shared.fetchProfileData { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let profile):

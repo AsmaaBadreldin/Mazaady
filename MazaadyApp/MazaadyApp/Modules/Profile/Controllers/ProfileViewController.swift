@@ -19,9 +19,9 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
     private let headerView = ProfileHeaderView()
     private let tabsView = ProfileTabsView()
     private let searchBarView = SearchBarView()
+    private let productGridView = ProductGridView()
 
     // Placeholder views for upcoming steps
-    private let productGridPlaceholder = UIView() // will be ProductCollectionView
     private let bannerStackPlaceholder = UIView() // will be BannerStackView
     private let tagListPlaceholder = UIView() // will be TagListView
 
@@ -66,7 +66,7 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
         [headerView,
          tabsView,
          searchBarView,
-         productGridPlaceholder,
+         productGridView,
          bannerStackPlaceholder,
          tagListPlaceholder
         ].forEach {
@@ -77,13 +77,12 @@ final class ProfileViewController: UIViewController, ProfileViewProtocol {
         // Temporary heights for placeholders
         tabsView.backgroundColor = .systemGray6
         searchBarView.backgroundColor = .systemGray5
-        productGridPlaceholder.backgroundColor = .systemGray4
+        productGridView.backgroundColor = .systemGray4
         bannerStackPlaceholder.backgroundColor = .systemGray3
         tagListPlaceholder.backgroundColor = .systemGray2
 
         tabsView.heightAnchor.constraint(equalToConstant: 44).isActive = true
         searchBarView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        productGridPlaceholder.heightAnchor.constraint(equalToConstant: 400).isActive = true
         bannerStackPlaceholder.heightAnchor.constraint(equalToConstant: 180).isActive = true
         tagListPlaceholder.heightAnchor.constraint(equalToConstant: 120).isActive = true
     }

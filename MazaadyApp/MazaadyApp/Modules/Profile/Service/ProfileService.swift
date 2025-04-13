@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class NetworkManager {
-    static let shared = NetworkManager()
+final class ProfileService {
+    static let shared = ProfileService()
     private init() {}
 
     func fetchProfileData(completion: @escaping (Result<ProfileModel, Error>) -> Void) {
