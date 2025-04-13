@@ -41,4 +41,8 @@ final class ProductGridPresenter {
     func product(at index: Int) -> Product {
         return products[index]
     }
+    
+    var allProducts: [Product] {
+        return products
+    }
 }

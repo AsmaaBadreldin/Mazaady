@@ -11,7 +11,7 @@ protocol SearchBarViewDelegate: AnyObject {
     func didTapSearchButton(with keyword: String)
 }
 
-final class SearchBarView: UIView {
+final class SearchBarView: UIView, UITextFieldDelegate {
 
     weak var delegate: SearchBarViewDelegate?
 
@@ -43,7 +43,7 @@ final class SearchBarView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
-        searchButton.addTarget(self, action: #selector(searchTapped), for: .touchUpInside)
+        setupActions()
     }
 
     required init?(coder: NSCoder) {
@@ -65,13 +65,23 @@ final class SearchBarView: UIView {
             container.topAnchor.constraint(equalTo: topAnchor),
             container.bottomAnchor.constraint(equalTo: bottomAnchor),
             container.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            container.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16) 
+            container.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16)
         ])
 
         searchButton.widthAnchor.constraint(equalToConstant: 44).isActive = true
     }
 
+    private func setupActions() {
+        textField.delegate = self
+        textField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        searchButton.addTarget(self, action: #selector(searchTapped), for: .touchUpInside)
+    }
+
     @objc private func searchTapped() {
+        delegate?.didTapSearchButton(with: textField.text ?? "")
+    }
+
+    @objc private func textFieldDidChange() {
         delegate?.didTapSearchButton(with: textField.text ?? "")
     }
 

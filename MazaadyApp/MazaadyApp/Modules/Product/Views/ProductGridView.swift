@@ -18,7 +18,7 @@ final class ProductGridView: UIView, ProductGridViewProtocol, UICollectionViewDa
         layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 16, right: 16)
 
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.isScrollEnabled = false // Important for height auto-adjustment
+        cv.isScrollEnabled = false
         cv.backgroundColor = .clear
         cv.translatesAutoresizingMaskIntoConstraints = false
         return cv
@@ -29,6 +29,9 @@ final class ProductGridView: UIView, ProductGridViewProtocol, UICollectionViewDa
     // MARK: - Dependencies
 
     private var presenter: ProductGridPresenter!
+    private var allProducts: [Product] = []
+    private var filteredProducts: [Product] = []
+    private var isFiltering: Bool = false
 
     // MARK: - Init
 
@@ -55,7 +58,7 @@ final class ProductGridView: UIView, ProductGridViewProtocol, UICollectionViewDa
 
     private func setupLayout() {
         addSubview(collectionView)
-        heightConstraint = heightAnchor.constraint(equalToConstant: 400) // initial fallback
+        heightConstraint = heightAnchor.constraint(equalToConstant: 400) // Initial fallback
         heightConstraint?.isActive = true
 
         NSLayoutConstraint.activate([
@@ -82,29 +85,51 @@ final class ProductGridView: UIView, ProductGridViewProtocol, UICollectionViewDa
         collectionView.removeObserver(self, forKeyPath: "contentSize")
     }
 
+    // MARK: - Public APIs
+
+    func filterProducts(by keyword: String) {
+        isFiltering = true
+        filteredProducts = allProducts.filter {
+            $0.name.lowercased().contains(keyword.lowercased())
+        }
+        collectionView.reloadData()
+    }
+
+    func clearFilter() {
+        isFiltering = false
+        filteredProducts = []
+        collectionView.reloadData()
+    }
+
+    func setAllProducts(_ products: [Product]) {
+        allProducts = products
+        collectionView.reloadData()
+    }
+
     // MARK: - ProductGridViewProtocol
 
     func reloadData() {
+        // When data is ready from presenter
+        allProducts = presenter.allProducts
         collectionView.reloadData()
     }
 
     func showError(_ message: String) {
-        // Optional: show an alert or empty view
+        // Handle error if needed
     }
 
     // MARK: - UICollectionView DataSource
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        presenter.numberOfItems()
+        return isFiltering ? filteredProducts.count : allProducts.count
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ProductCell.identifier, for: indexPath) as? ProductCell else {
             return UICollectionViewCell()
         }
 
-        let product = presenter.product(at: indexPath.item)
+        let product = isFiltering ? filteredProducts[indexPath.item] : allProducts[indexPath.item]
         cell.configure(with: product)
         return cell
     }

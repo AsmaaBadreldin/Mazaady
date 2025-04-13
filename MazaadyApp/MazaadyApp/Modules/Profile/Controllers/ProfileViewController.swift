@@ -108,6 +108,10 @@ extension ProfileViewController: ProfileTabsViewDelegate {
 
 extension ProfileViewController: SearchBarViewDelegate {
     func didTapSearchButton(with keyword: String) {
-        presenter?.didSearch(with: keyword)
+        if keyword.isEmpty {
+            productGridView.clearFilter()
+        } else {
+            productGridView.filterProducts(by: keyword)
+        }
     }
 }
